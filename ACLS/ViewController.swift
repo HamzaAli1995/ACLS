@@ -7,96 +7,134 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
-    @IBOutlet weak var signInSelector: UISegmentedControl!
+    // MARK: Constants
+    let loginToList = "LoginToList"
     
-    @IBOutlet weak var siginInLabel: UILabel!
+    // MARK: Outlets
+    @IBOutlet weak var textFieldLoginEmail: UITextField!
+    @IBOutlet weak var textFieldLoginPassword: UITextField!
     
-    
-    @IBOutlet weak var emailTextField: UITextField!
-    
-    
-    @IBOutlet weak var passwordTextField: UITextField!
-    
-    
-    @IBOutlet weak var signInButton: UIButton!
-    
-    var isSignIn:Bool = true
-
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    @IBAction func signInSelectorChanged(_ sender: UISegmentedControl) {
         
-        // Flip the boolean
-        isSignIn = !isSignIn
-        
-        // Check the bool and set the button and labels
-        if isSignIn {
-            siginInLabel.text = "Sign In"
-            signInButton.setTitle("Sign In", for: .normal)
-        }
-        else {
-            siginInLabel.text = "Register"
-            signInButton.setTitle("Register", for: .normal)
-        }
-    }
- 
-    @IBAction func signInButtonTapped(_ sender: UIButton) {
-        
-        if let email = emailTextField.text, let password = passwordTextField.text
-        {
-        
-        // Check if it's sign in or register
-        if isSignIn {
-            // Sign in the user with Firebase
-            Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-                
-                // Check that user isn't nil
-                if let u = user {
-                    // User is found, go to Home Screen
-                    self.performSegue(withIdentifier: "goToHome", sender: self)
-                }
-                else{
-                    // Error: Check error and show message
-                    
-                }
-                
-            }
-            
-        }
-        else {
-            // Register the user with Firebase
-            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                
-                // Check that user isn't nil
-                if let u = user {
-                    // User is found, go to Home Screen
-                    self.performSegue(withIdentifier: "goToHome", sender: self)
-                }
-                else{
-                    // Error: Check error and show message
-                    
-               
-                }
-       
-            }
-            
-            }
-
-        }
-    
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // Dismiss the keyboard when the view is tapped on
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
+    // MARK: Actions
+    @IBAction func loginDidTouch(_ sender: Any) {
+        
+     // Check if the user has verified their email, Check if the email format is correct, login to the home page if all conditions are met
+        Auth.auth().signIn(withEmail: textFieldLoginEmail.text!, password: textFieldLoginPassword.text!) { (user, error) in
+            if error == nil{
+                
+                Auth.auth().signIn(withEmail: self.textFieldLoginEmail.text!, password: self.textFieldLoginPassword.text!) { (authResult, error) in
+                    if let authResult = authResult {
+                        let user = authResult.user
+                        if user.isEmailVerified {
+                            self.performSegue(withIdentifier: "LoginToList" , sender: self)
+                        } else {
+                            let alert = UIAlertController(title: "Error", message: "Please verify email", preferredStyle: UIAlertController.Style.alert)
+                            alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                            
+                        }
+                    }
+                    if let error = error {
+                        print("Cant Sign in user")
+                    }
+                }
+            }
+            else{
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+}
+
+    // Sign out user and go back to main screen
+    @IBAction func signOutDidTouch(_ sender: Any) {
+    do {
+    try Auth.auth().signOut()
+    }
+    catch let signOutError as NSError {
+    print ("Error signing out: %@", signOutError)
+    }
+    
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let initial = storyboard.instantiateInitialViewController()
+    UIApplication.shared.keyWindow?.rootViewController = initial
+    }
+    
+    // Register user to firebase and send a verification email
+   @IBAction func signUpDidTouch(_ sender: AnyObject) {
+        let alert = UIAlertController(title: "Register",
+                                      message: "Register",
+                                      preferredStyle: .alert)
+        
+        let saveAction = UIAlertAction(title: "Save",
+                                       style: .default) { action in
+                                        let emailField = alert.textFields![0]
+                                        let passwordField = alert.textFields![1]
+                                        Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) {
+                                            user, error in
+                                            if error != nil {
+                                                if let errorCode = AuthErrorCode(rawValue: error!._code) {
+                                                    switch errorCode {
+                                                    case .weakPassword:
+                                                        print("Please provide a strong password")
+                                                    default:
+                                                        print("There is an error")
+                                                    }
+                                                    
+                                                }
+                                            }
+                                            if user != nil {
+                                                Auth.auth().currentUser?.sendEmailVerification { (error) in
+                                                    // ...
+                                                
+                                                    print(error?.localizedDescription)
+                                                }
+                                            }
+                                        }
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel",
+                                         style: .default)
+        
+        alert.addTextField { textEmail in
+            textEmail.placeholder = "Enter your email"
+        }
+        
+        alert.addTextField { textPassword in
+            textPassword.isSecureTextEntry = true
+            textPassword.placeholder = "Enter your password"
+        }
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == textFieldLoginEmail {
+            textFieldLoginPassword.becomeFirstResponder()
+        }
+        if textField == textFieldLoginPassword {
+            textField.resignFirstResponder()
+        }
+        return true
     }
 }
+
 
