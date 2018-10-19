@@ -94,14 +94,23 @@
                                     <action selector="loginDidTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="tht-GJ-9AT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGr-gI-PBq">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <state key="normal" title="Forgot Password?"/>
+                                <connections>
+                                    <action selector="forgotPasswordTapped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DB0-v0-FrE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="XGr-gI-PBq" firstAttribute="leading" secondItem="XgM-GA-jn6" secondAttribute="leading" id="1il-UN-3Vq"/>
                             <constraint firstItem="XlR-6D-pNE" firstAttribute="top" secondItem="XgM-GA-jn6" secondAttribute="top" constant="52" id="26x-Qn-9e9"/>
                             <constraint firstItem="ufw-i0-710" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="54" id="9U0-91-ufG"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hxW-pl-K5k" secondAttribute="trailing" constant="54" id="I3P-lp-hVn"/>
                             <constraint firstItem="FXf-pW-pxd" firstAttribute="top" secondItem="XlR-6D-pNE" secondAttribute="bottom" constant="116" id="IDh-LG-peZ"/>
                             <constraint firstItem="XgM-GA-jn6" firstAttribute="centerX" secondItem="XlR-6D-pNE" secondAttribute="centerX" id="ItG-A2-m0j"/>
+                            <constraint firstItem="XgM-GA-jn6" firstAttribute="trailing" secondItem="XGr-gI-PBq" secondAttribute="trailing" id="L4f-TD-ItE"/>
                             <constraint firstItem="hxW-pl-K5k" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="54" id="P42-vj-kV2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ufw-i0-710" secondAttribute="trailing" constant="54" id="Wg2-fK-Qye"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FXf-pW-pxd" secondAttribute="trailing" constant="54" id="ZGI-2N-yal"/>
@@ -110,6 +119,7 @@
                             <constraint firstItem="ufw-i0-710" firstAttribute="top" secondItem="vRw-I3-Jav" secondAttribute="bottom" constant="16" id="kg0-1B-eeL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vRw-I3-Jav" secondAttribute="trailing" constant="54" id="mSh-Am-AZ6"/>
                             <constraint firstItem="vRw-I3-Jav" firstAttribute="top" secondItem="hxW-pl-K5k" secondAttribute="bottom" constant="20" id="o2G-6e-s6Y"/>
+                            <constraint firstItem="XgM-GA-jn6" firstAttribute="bottom" secondItem="XGr-gI-PBq" secondAttribute="bottom" id="pMs-PL-raI"/>
                             <constraint firstItem="hxW-pl-K5k" firstAttribute="top" secondItem="FXf-pW-pxd" secondAttribute="bottom" constant="8" id="w4t-Rh-6er"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XgM-GA-jn6"/>
@@ -127,8 +137,6 @@
         <!--Grocery List-->
         <scene sceneID="GDd-Ja-sb5">
             <objects>
-                <exit id="JYP-YG-5Oa" userLabel="Exit" sceneMemberID="exit"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fRX-FK-8Yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController title="Grocery List" id="WRG-qR-ebT" customClass="GroceryListTableViewController" customModule="ACLS" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="rzx-FE-o1H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
@@ -148,6 +156,8 @@
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
+                <exit id="JYP-YG-5Oa" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fRX-FK-8Yw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1865" y="399"/>
         </scene>
@@ -176,4 +186,5 @@
             <point key="canvasLocation" x="1053" y="399"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>
