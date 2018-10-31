@@ -9,19 +9,25 @@
 /* Begin PBXBuildFile section */
 		49029FA3565F3756E1F51DB0 /* Pods_ACLS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB78FD15E981DA96E78E0C82 /* Pods_ACLS.framework */; };
 		BB00111A217265FC008F69D6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB001119217265FC008F69D6 /* GoogleService-Info.plist */; };
-		BB0676DE217863690077A532 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB0676DD217863690077A532 /* Main.storyboard */; };
+		BB45AB9121896249006DA9E8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB45AB9021896249006DA9E8 /* Main.storyboard */; };
+		BB45AB9321896325006DA9E8 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45AB9221896325006DA9E8 /* SignUpViewController.swift */; };
+		BB45AB95218963B9006DA9E8 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45AB94218963B9006DA9E8 /* HomeViewController.swift */; };
+		BB45AB972189641D006DA9E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45AB962189641D006DA9E8 /* LoginViewController.swift */; };
+		BB45AB992189656A006DA9E8 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB45AB982189656A006DA9E8 /* ResetPasswordViewController.swift */; };
 		BB764960216F137A0033B137 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB76495F216F137A0033B137 /* AppDelegate.swift */; };
-		BB764962216F137A0033B137 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB764961216F137A0033B137 /* ViewController.swift */; };
 		BB764967216F137C0033B137 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB764966216F137C0033B137 /* Assets.xcassets */; };
 		BB76496A216F137C0033B137 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB764968216F137C0033B137 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BB001119217265FC008F69D6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		BB0676DD217863690077A532 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		BB45AB9021896249006DA9E8 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		BB45AB9221896325006DA9E8 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		BB45AB94218963B9006DA9E8 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		BB45AB962189641D006DA9E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BB45AB982189656A006DA9E8 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		BB76495C216F137A0033B137 /* ACLS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACLS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB76495F216F137A0033B137 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BB764961216F137A0033B137 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		BB764966216F137C0033B137 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB764969216F137C0033B137 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BB76496B216F137C0033B137 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -81,8 +87,11 @@
 			isa = PBXGroup;
 			children = (
 				BB76495F216F137A0033B137 /* AppDelegate.swift */,
-				BB764961216F137A0033B137 /* ViewController.swift */,
-				BB0676DD217863690077A532 /* Main.storyboard */,
+				BB45AB94218963B9006DA9E8 /* HomeViewController.swift */,
+				BB45AB962189641D006DA9E8 /* LoginViewController.swift */,
+				BB45AB982189656A006DA9E8 /* ResetPasswordViewController.swift */,
+				BB45AB9221896325006DA9E8 /* SignUpViewController.swift */,
+				BB45AB9021896249006DA9E8 /* Main.storyboard */,
 				BB764966216F137C0033B137 /* Assets.xcassets */,
 				BB001119217265FC008F69D6 /* GoogleService-Info.plist */,
 				BB764968216F137C0033B137 /* LaunchScreen.storyboard */,
@@ -152,9 +161,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB76496A216F137C0033B137 /* LaunchScreen.storyboard in Resources */,
-				BB0676DE217863690077A532 /* Main.storyboard in Resources */,
 				BB00111A217265FC008F69D6 /* GoogleService-Info.plist in Resources */,
 				BB764967216F137C0033B137 /* Assets.xcassets in Resources */,
+				BB45AB9121896249006DA9E8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,8 +227,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BB764962216F137A0033B137 /* ViewController.swift in Sources */,
+				BB45AB9321896325006DA9E8 /* SignUpViewController.swift in Sources */,
 				BB764960216F137A0033B137 /* AppDelegate.swift in Sources */,
+				BB45AB992189656A006DA9E8 /* ResetPasswordViewController.swift in Sources */,
+				BB45AB972189641D006DA9E8 /* LoginViewController.swift in Sources */,
+				BB45AB95218963B9006DA9E8 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
