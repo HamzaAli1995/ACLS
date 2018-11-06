@@ -9,15 +9,29 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
+    
+    var refUsers: DatabaseReference!
     
     //Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var genderTextField: UITextField!
+    @IBOutlet weak var birthdateTextField: UITextField!
+    @IBOutlet weak var emergencyFirstNameTextField: UITextField!
+    @IBOutlet weak var emergencyLastNameTextField: UITextField!
+    @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
+    
+    
     //Sign Up Action for email
     @IBAction func createAccountAction(_ sender: AnyObject) {
+        
+       
         if emailTextField.text == "" {
             let alertController = UIAlertController(title: "Error", message: "Please enter your email and password", preferredStyle: .alert)
             
@@ -39,6 +53,8 @@ class SignUpViewController: UIViewController {
                         signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(signUpAlert, animated: true, completion: nil)
                         
+                       
+                        
                 }
                 }
                 
@@ -52,8 +68,33 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
+        
+      addUsers() 
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        FirebaseApp.configure()
+        refUsers = Database.database().reference().child("users")
     }
     
     
+    func addUsers(){
+        let key = refUsers.childByAutoId().key
+        
+        let user = ["id":key,
+                    "FirstName": firstNameTextField.text! as String,
+                    "LastName": lastNameTextField.text! as String,
+                    "email": emailTextField.text! as String,
+                    //"Gender": genderTextField.text! as string,
+                    // "BirthDate": birthdateTextField.text! as string,
+                    "emergencyFirstName": emergencyFirstNameTextField.text! as String,
+                    "emergenceyLastName": emergencyLastNameTextField.text! as String,
+                    "emergencyPhoneNumber": emergencyPhoneNumberTextField.text! as String
+        ]
+        
+        refUsers.child("key").setValue(user)
+    }
+
 }
 
