@@ -13,6 +13,7 @@ import FirebaseDatabase
 
 class SignUpViewController: UIViewController {
     
+    
     var refUsers: DatabaseReference!
     
     //Outlets
@@ -68,8 +69,7 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
-        
-      addUsers() 
+       addUsers() 
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,6 @@ class SignUpViewController: UIViewController {
         FirebaseApp.configure()
         refUsers = Database.database().reference().child("users")
     }
-    
     
     func addUsers(){
         let key = refUsers.childByAutoId().key
@@ -87,14 +86,14 @@ class SignUpViewController: UIViewController {
                     "LastName": lastNameTextField.text! as String,
                     "email": emailTextField.text! as String,
                     //"Gender": genderTextField.text! as string,
-                    // "BirthDate": birthdateTextField.text! as string,
-                    "emergencyFirstName": emergencyFirstNameTextField.text! as String,
-                    "emergenceyLastName": emergencyLastNameTextField.text! as String,
-                    "emergencyPhoneNumber": emergencyPhoneNumberTextField.text! as String
+            // "BirthDate": birthdateTextField.text! as string,
+                "emergencyFirstName": emergencyFirstNameTextField.text! as String,
+                "emergenceyLastName": emergencyLastNameTextField.text! as String,
+                "emergencyPhoneNumber": emergencyPhoneNumberTextField.text! as String
         ]
         
         refUsers.child("key").setValue(user)
     }
-
+    
 }
 

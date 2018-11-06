@@ -212,14 +212,14 @@
                         <color key="backgroundColor" red="0.085108838975429535" green="0.20237520337104797" blue="0.40565702319145203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <outlet property="BirthdateTextField" destination="A3F-Ql-60P" id="2Wm-Kt-Ard"/>
-                        <outlet property="FirstNmaeTextField" destination="88f-lU-nyZ" id="cSa-IK-Qhy"/>
-                        <outlet property="LastNameTextField" destination="kdd-7f-GSz" id="AL0-Fa-CCi"/>
+                        <outlet property="birthdateTextField" destination="A3F-Ql-60P" id="wzP-BT-Usc"/>
                         <outlet property="emailTextField" destination="Mzg-Nq-DOO" id="j4Y-Ig-TEt"/>
-                        <outlet property="emergencyFirstNameTextField" destination="4II-nC-GaQ" id="7eL-dO-yMu"/>
-                        <outlet property="emergencyLastNameTextField" destination="6dJ-v5-gZf" id="qc1-Q8-agg"/>
-                        <outlet property="emergencyPhoneNumber" destination="tWH-yk-EM8" id="h8D-EQ-Hky"/>
-                        <outlet property="genderTextField" destination="88p-uo-5gJ" id="Foh-l6-zAD"/>
+                        <outlet property="emergencyFirstNameTextField" destination="4II-nC-GaQ" id="iJ4-vg-R8Q"/>
+                        <outlet property="emergencyLastNameTextField" destination="6dJ-v5-gZf" id="gEr-cV-hxK"/>
+                        <outlet property="emergencyPhoneNumberTextField" destination="tWH-yk-EM8" id="MjZ-dl-GNJ"/>
+                        <outlet property="firstNameTextField" destination="88f-lU-nyZ" id="i0C-ic-OWj"/>
+                        <outlet property="genderTextField" destination="88p-uo-5gJ" id="ycM-qn-BGv"/>
+                        <outlet property="lastNameTextField" destination="kdd-7f-GSz" id="bHW-yy-hcu"/>
                         <outlet property="passwordTextField" destination="gDl-65-jdF" id="EqT-3l-k4i"/>
                     </connections>
                 </viewController>
