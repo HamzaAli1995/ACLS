@@ -30,11 +30,6 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emergencyLastNameTextField: UITextField!
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
     
-    override func viewDidLoad() {
-        super .viewDidLoad()
-        FirebaseApp.configure()
-        refUsers = Database.database().reference().child("users")
-    }
     
     
     //Sign Up Action for email
@@ -62,7 +57,7 @@ class SignUpViewController: UIViewController {
                         signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(signUpAlert, animated: true, completion: nil)
                         
-                       
+                
                         
                 }
                 }
@@ -80,6 +75,12 @@ class SignUpViewController: UIViewController {
       addUsers()
     }
     
+    override func viewDidLoad() {
+        super .viewDidLoad()
+        refUsers = Database.database().reference().child("users")
+    }
+    
+    
     func addUsers(){
         let key = refUsers.childByAutoId().key
         
@@ -94,6 +95,7 @@ class SignUpViewController: UIViewController {
                     "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
         ]
         refUsers.child("key").setValue(user)
+        
     }
 }
 
