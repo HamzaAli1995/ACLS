@@ -15,7 +15,7 @@ class SignUpViewController: UIViewController {
     
     var refUsers: DatabaseReference!
     var mysegementBool : Bool = true
-    
+    private var datePicker: UIDatePicker?
     
     //Outlets
     @IBOutlet weak var emailTextField: UITextField!
@@ -29,7 +29,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
     
     @IBOutlet weak var segmentedControllor: UISegmentedControl!
-    
+   
     
     //Sign Up Action for email
     @IBAction func createAccountAction(_ sender: AnyObject) {
@@ -84,15 +84,39 @@ class SignUpViewController: UIViewController {
         default:
             break
         }
-        
-        print(mysegementBool)
+             print(mysegementBool)
     }
+    
+    
+    
     
     override func viewDidLoad() {
         super .viewDidLoad()
+        
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.addTarget(self, action: #selector(SignUpViewController.dateChanged(datePicker:)), for: .valueChanged)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.viewTapped(gestureRecognizer:)))
+        view.addGestureRecognizer(tapGesture)
+        birthdateTextField.inputView = datePicker
+        
         refUsers = Database.database().reference().child("users")
+        
     }
     
+    
+    @objc func dateChanged(datePicker: UIDatePicker){
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        birthdateTextField.text = dateFormatter.string(from: datePicker.date)
+        view.endEditing(true)
+        
+    }
+    
+    @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
+        view.endEditing(true)
+        
+    }
     
     func addUsers(){
         let key = refUsers.childByAutoId().key
@@ -102,7 +126,7 @@ class SignUpViewController: UIViewController {
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
                     "isMale": mysegementBool, ////read boolean value
-                    "Birthdate:": birthdateTextField.text! as String,
+                    "Birthdate:": birthdateTextField.text! as String,   //convert it to integer instead
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
                     "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
