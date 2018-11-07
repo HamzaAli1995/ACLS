@@ -14,18 +14,16 @@ import FirebaseAuth
 class SignUpViewController: UIViewController {
     
     var refUsers: DatabaseReference!
-    var isMale: Bool = true
+    var mysegementBool : Bool = true
+    
     
     //Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
-    
-    @IBOutlet weak var GenderTextField: UITextField!
-    
-    
     @IBOutlet weak var birthdateTextField: UITextField!
+    
     @IBOutlet weak var emergencyFirstNameTextField: UITextField!
     @IBOutlet weak var emergencyLastNameTextField: UITextField!
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
@@ -58,8 +56,7 @@ class SignUpViewController: UIViewController {
                         signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                         self.present(signUpAlert, animated: true, completion: nil)
                         
-                
-                        
+                        self.addUsers()    /// add user info to database
                 }
                 }
                 
@@ -73,7 +70,7 @@ class SignUpViewController: UIViewController {
                 }
             }
         }
-      addUsers()
+      
     }
     
     
@@ -81,14 +78,16 @@ class SignUpViewController: UIViewController {
         
         switch segmentedControllor.selectedSegmentIndex{
         case 0:
-            isMale = true
+            mysegementBool = true
         case 1:
-            isMale = false
+            mysegementBool = false
         default:
             break
-           
         }
+        
+        print(mysegementBool)
     }
+    
     override func viewDidLoad() {
         super .viewDidLoad()
         refUsers = Database.database().reference().child("users")
@@ -98,17 +97,17 @@ class SignUpViewController: UIViewController {
     func addUsers(){
         let key = refUsers.childByAutoId().key
         
-        let user = ["id:":key,
+        let user = ["id:":key!,
                     "FirstName:": firstNameTextField.text! as String,
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
-                    "Gender:": GenderTextField.text! as String,
-                   // "isMale": isMale.
+                    "isMale": mysegementBool, ////read boolean value
                     "Birthdate:": birthdateTextField.text! as String,
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
                     "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
-        ]
+                    ] as [String : Any]
+        
         self.refUsers.childByAutoId().setValue(user)
         
     }
