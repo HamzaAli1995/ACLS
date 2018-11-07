@@ -14,7 +14,7 @@ import FirebaseAuth
 class SignUpViewController: UIViewController {
     
     var refUsers: DatabaseReference!
-    
+    var isMale: Bool = true
     
     //Outlets
     @IBOutlet weak var emailTextField: UITextField!
@@ -30,6 +30,7 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var emergencyLastNameTextField: UITextField!
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
     
+    @IBOutlet weak var segmentedControllor: UISegmentedControl!
     
     
     //Sign Up Action for email
@@ -75,6 +76,19 @@ class SignUpViewController: UIViewController {
       addUsers()
     }
     
+    
+    @IBAction func indexChanged(_ sender: Any) {
+        
+        switch segmentedControllor.selectedSegmentIndex{
+        case 0:
+            isMale = true
+        case 1:
+            isMale = false
+        default:
+            break
+           
+        }
+    }
     override func viewDidLoad() {
         super .viewDidLoad()
         refUsers = Database.database().reference().child("users")
@@ -89,12 +103,13 @@ class SignUpViewController: UIViewController {
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
                     "Gender:": GenderTextField.text! as String,
+                   // "isMale": isMale.
                     "Birthdate:": birthdateTextField.text! as String,
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
                     "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
         ]
-        refUsers.child("key").setValue(user)
+        self.refUsers.childByAutoId().setValue(user)
         
     }
 }

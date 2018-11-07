@@ -208,6 +208,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="qh6-i1-EW4">
+                                <rect key="frame" x="139" y="319" width="117" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Male"/>
+                                    <segment title="Female"/>
+                                </segments>
+                                <connections>
+                                    <action selector="indexChanged:" destination="eaE-HM-yhK" eventType="valueChanged" id="nB5-Js-pn8"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" red="0.085108838975429535" green="0.20237520337104797" blue="0.40565702319145203" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -221,6 +232,7 @@
                         <outlet property="firstNameTextField" destination="8ct-wh-9ww" id="Zvl-dQ-rwP"/>
                         <outlet property="lastNameTextField" destination="DAU-Mh-yUf" id="JL9-Oe-CXl"/>
                         <outlet property="passwordTextField" destination="gDl-65-jdF" id="EqT-3l-k4i"/>
+                        <outlet property="segmentedControllor" destination="qh6-i1-EW4" id="MpE-jv-qx8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GaQ-XU-G4M" userLabel="First Responder" sceneMemberID="firstResponder"/>
