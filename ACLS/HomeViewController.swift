@@ -14,6 +14,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,13 +30,14 @@ class HomeViewController: UIViewController {
                 
                 refreshAlert.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { (action: UIAlertAction!) in
                     Auth.auth().currentUser?.delete(completion: { (err) in
-
+                        
                         do {
                             try Auth.auth().signOut()
                         } catch let error as NSError {
                             print(error.localizedDescription)
                         }
                     })
+                    
                     let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
                     self.present(vc, animated: true, completion: nil)
                 }))
@@ -48,7 +50,7 @@ class HomeViewController: UIViewController {
                 }))
                 
                 self.present(refreshAlert, animated: true, completion: nil)
-
+        
     }
     
     @IBAction func logOutAction(sender: AnyObject) {
@@ -63,4 +65,7 @@ class HomeViewController: UIViewController {
             }
         }
     }
+    
+   
+
 }

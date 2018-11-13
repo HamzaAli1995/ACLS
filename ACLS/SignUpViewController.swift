@@ -73,14 +73,14 @@ class SignUpViewController: UIViewController {
       
     }
     
-    
+    // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
         
         switch segmentedControllor.selectedSegmentIndex{
         case 0:
-            mysegementBool = true
+            mysegementBool = true //male segement selected
         case 1:
-            mysegementBool = false
+            mysegementBool = false // female segement selected
         default:
             break
         }
@@ -92,19 +92,24 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super .viewDidLoad()
-        
+        ///stteing datepicker wheel
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
         datePicker?.addTarget(self, action: #selector(SignUpViewController.dateChanged(datePicker:)), for: .valueChanged)
+        
+        ///setting tap Gesture to quit datepicker when touching the screen
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.viewTapped(gestureRecognizer:)))
-        view.addGestureRecognizer(tapGesture)
+        view.addGestureRecognizer(tapGesture)   /// quit the datepicker wheel when touching other plase on the screen
+        
+        //show the picked date on birthday textfield
         birthdateTextField.inputView = datePicker
         
+        ///refrence to users node on database
         refUsers = Database.database().reference().child("users")
         
     }
     
-    
+    //date formater function
     @objc func dateChanged(datePicker: UIDatePicker){
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
@@ -112,26 +117,28 @@ class SignUpViewController: UIViewController {
         view.endEditing(true)
         
     }
-    
+    //respond to screen toching function
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
         
     }
-    
+    // add user information to database when signup
     func addUsers(){
-        let key = refUsers.childByAutoId().key
+        let key = refUsers.childByAutoId().key // save the user id to key
         
+        //user information dictionary
         let user = ["id:":key!,
                     "FirstName:": firstNameTextField.text! as String,
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
-                    "isMale": mysegementBool, ////read boolean value
+                    "isMale": mysegementBool, ////read boolean value from male/female segementedController
                     "Birthdate:": birthdateTextField.text! as String,   //convert it to integer instead
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
                     "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
-                    ] as [String : Any]
+                    ] as [String : Any] //allow other types than String to be saved in the dictionary
         
+        //setting each user information under its user id
         self.refUsers.childByAutoId().setValue(user)
         
     }
