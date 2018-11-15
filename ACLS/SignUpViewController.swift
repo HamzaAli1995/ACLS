@@ -17,17 +17,19 @@ class SignUpViewController: UIViewController {
     var mysegementBool : Bool = true
     private var datePicker: UIDatePicker?
     
+    struct GlobalVariable{
+        static var  userBirthDateSince1970 = Double()
+    }
+    
     //Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var birthdateTextField: UITextField!
-    
     @IBOutlet weak var emergencyFirstNameTextField: UITextField!
     @IBOutlet weak var emergencyLastNameTextField: UITextField!
     @IBOutlet weak var emergencyPhoneNumberTextField: UITextField!
-    
     @IBOutlet weak var segmentedControllor: UISegmentedControl!
    
     
@@ -73,6 +75,25 @@ class SignUpViewController: UIViewController {
       
     }
     
+    
+    override func viewDidLoad() {
+        super .viewDidLoad()
+        ///stteing datepicker wheel
+        datePicker = UIDatePicker()
+        datePicker?.datePickerMode = .date
+        datePicker?.addTarget(self, action: #selector(SignUpViewController.dateChanged(datePicker:)), for: .valueChanged)
+        
+        ///setting tap Gesture to quit datepicker when touching the screen
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.viewTapped(gestureRecognizer:)))
+        view.addGestureRecognizer(tapGesture)   /// quit the datepicker wheel when touching other place on the screen
+        
+        //show the picked date on birthday textfield
+        birthdateTextField.inputView = datePicker
+        
+        ///refrence to users node on database
+        refUsers = Database.database().reference().child("users")
+        
+    }
     // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
         
@@ -89,53 +110,39 @@ class SignUpViewController: UIViewController {
     
     
     
-    
-    override func viewDidLoad() {
-        super .viewDidLoad()
-        ///stteing datepicker wheel
-        datePicker = UIDatePicker()
-        datePicker?.datePickerMode = .date
-        datePicker?.addTarget(self, action: #selector(SignUpViewController.dateChanged(datePicker:)), for: .valueChanged)
-        
-        ///setting tap Gesture to quit datepicker when touching the screen
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(SignUpViewController.viewTapped(gestureRecognizer:)))
-        view.addGestureRecognizer(tapGesture)   /// quit the datepicker wheel when touching other plase on the screen
-        
-        //show the picked date on birthday textfield
-        birthdateTextField.inputView = datePicker
-        
-        ///refrence to users node on database
-        refUsers = Database.database().reference().child("users")
-        
-    }
-    
     //date formater function
     @objc func dateChanged(datePicker: UIDatePicker){
+    
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy"
-        birthdateTextField.text = dateFormatter.string(from: datePicker.date)
+        birthdateTextField.text = dateFormatter.string(from: datePicker.date) //date for view
+        GlobalVariable.userBirthDateSince1970 = datePicker.date.timeIntervalSince1970 //date for database
+        print("*\(GlobalVariable.userBirthDateSince1970)")
+      
         view.endEditing(true)
-        
     }
+    
     //respond to screen toching function
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
-        
     }
+    
+    
     // add user information to database when signup
     func addUsers(){
+        
         let key = refUsers.childByAutoId().key // save the user id to key
         
-        //user information dictionary
+        //user information dictionary to be saved into database
         let user = ["id:":key!,
                     "FirstName:": firstNameTextField.text! as String,
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
-                    "isMale": mysegementBool, ////read boolean value from male/female segementedController
-                    "Birthdate:": birthdateTextField.text! as String,   //convert it to integer instead
+                    "isMale": mysegementBool,
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
-                    "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String
+                    "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String,
+                    "BirthDate": GlobalVariable.userBirthDateSince1970
                     ] as [String : Any] //allow other types than String to be saved in the dictionary
         
         //setting each user information under its user id

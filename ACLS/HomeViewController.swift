@@ -9,11 +9,15 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
 
 class HomeViewController: UIViewController {
     
+    var refUsers: DatabaseReference!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        refUsers = Database.database().reference().child("users")
         
     }
     
@@ -32,6 +36,7 @@ class HomeViewController: UIViewController {
                     Auth.auth().currentUser?.delete(completion: { (err) in
                         
                         do {
+                            self.deleteUserData()
                             try Auth.auth().signOut()
                         } catch let error as NSError {
                             print(error.localizedDescription)
@@ -66,6 +71,15 @@ class HomeViewController: UIViewController {
         }
     }
     
+    
+    func deleteUserData(){
+        
+       let key = refUsers.childByAutoId().key
+        
+         self.refUsers.child(key!).removeValue()
+        
+        print("datadeleted")
+    }
    
 
 }
