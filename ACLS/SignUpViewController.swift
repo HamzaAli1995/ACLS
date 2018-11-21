@@ -10,15 +10,24 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+protocol DataSentDelegate {
+    func userDidEnterData(data: String)
+    
+}
 
 class SignUpViewController: UIViewController {
     
+    var delegate: DataSentDelegate? = nil
+    
     var refUsers: DatabaseReference!
+    
     var mysegementBool : Bool = true
+    
     private var datePicker: UIDatePicker?
     
     struct GlobalVariable{
         static var  userBirthDateSince1970 = Double()
+        static var key = String()
     }
     
     //Outlets
@@ -56,9 +65,24 @@ class SignUpViewController: UIViewController {
                         
                         let signUpAlert = UIAlertController(title: "Please verify your email", message: "Email Sent!", preferredStyle: .alert)
                         signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        
                         self.present(signUpAlert, animated: true, completion: nil)
                         
                         self.addUsers()    /// add user info to database
+                        
+                        /*// segue between signupvc and homevc
+                        let main = UIStoryboard(name: "Main", bundle: nil)
+                        let first = main.instantiateViewController(withIdentifier: "Home")
+                        self.present(first, animated: false, completion: nil)
+                        */
+                        // send key to homeViewcontroller
+                        if self.delegate != nil {
+                            if GlobalVariable.key != nil{
+                                let data = GlobalVariable.key
+                                self.delegate?.userDidEnterData(data: data)
+                            }
+                        }
+                        
                 }
                 }
                 
@@ -94,6 +118,8 @@ class SignUpViewController: UIViewController {
         refUsers = Database.database().reference().child("users")
         
     }
+    
+    
     // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
         
@@ -131,10 +157,10 @@ class SignUpViewController: UIViewController {
     // add user information to database when signup
     func addUsers(){
         
-        let key = refUsers.childByAutoId().key // save the user id to key
+        GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
         
         //user information dictionary to be saved into database
-        let user = ["id:":key!,
+        let user = ["id:": GlobalVariable.key,
                     "FirstName:": firstNameTextField.text! as String,
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
@@ -149,5 +175,7 @@ class SignUpViewController: UIViewController {
         self.refUsers.childByAutoId().setValue(user)
         
     }
+   
+    
 }
 

@@ -11,9 +11,13 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, DataSentDelegate {
     
     var refUsers: DatabaseReference!
+    
+    struct GlobalVariable{
+        static var  key2 = String()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +27,7 @@ class HomeViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        
     }
     
     
@@ -36,6 +41,10 @@ class HomeViewController: UIViewController {
                     Auth.auth().currentUser?.delete(completion: { (err) in
                         
                         do {
+                            /*let main = UIStoryboard(name: "Main", bundle: nil)
+                            let second = main.instantiateViewController(withIdentifier: "SignUp")
+                            self.present(second, animated: false, completion: nil)*/
+                            
                             self.deleteUserData()
                             try Auth.auth().signOut()
                         } catch let error as NSError {
@@ -43,8 +52,10 @@ class HomeViewController: UIViewController {
                         }
                     })
                     
-                    let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
-                    self.present(vc, animated: true, completion: nil)
+                    let main = UIStoryboard(name: "Main", bundle: nil)
+                    let second = main.instantiateViewController(withIdentifier: "SignUp")
+                    self.present(second, animated: true, completion: nil)
+                    
                 }))
                 
                 refreshAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action: UIAlertAction!) in
@@ -62,8 +73,9 @@ class HomeViewController: UIViewController {
         if Auth.auth().currentUser != nil {
             do {
                 try Auth.auth().signOut()
-                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
-                present(vc, animated: true, completion: nil)
+                let main = UIStoryboard(name: "Main", bundle: nil)
+                    let second = main.instantiateViewController(withIdentifier: "SignUp")
+                present(second, animated: true, completion: nil)
                 
             } catch let error as NSError {
                 print(error.localizedDescription)
@@ -74,12 +86,24 @@ class HomeViewController: UIViewController {
     
     func deleteUserData(){
         
-       let key = refUsers.childByAutoId().key
+      // let key = refUsers.childByAutoId().key
         
-         self.refUsers.child(key!).removeValue()
+         self.refUsers.child(GlobalVariable.key2).removeValue()
         
         print("datadeleted")
     }
-   
-
+    
+    
+    func userDidEnterData(data: String) {
+        GlobalVariable.key2 = data
+    }
+    
+    // i need a segue from signup viewcontroller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SignUp" {
+            let signUpViewController: SignUpViewController = segue.destination as! SignUpViewController
+            signUpViewController.delegate = self
+        }
+        
+}
 }
