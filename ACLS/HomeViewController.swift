@@ -12,13 +12,11 @@ import FirebaseAuth
 import FirebaseDatabase
 import Alamofire
 
-class HomeViewController: UIViewController, DataSentDelegate {
+class HomeViewController: UIViewController {
     
     var refUsers: DatabaseReference!
     
-    struct GlobalVariable{
-        static var  key2 = String()
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,20 +59,21 @@ class HomeViewController: UIViewController, DataSentDelegate {
                     Auth.auth().currentUser?.delete(completion: { (err) in
                         
                         do {
-                            /*let main = UIStoryboard(name: "Main", bundle: nil)
-                            let second = main.instantiateViewController(withIdentifier: "SignUp")
-                            self.present(second, animated: false, completion: nil)*/
+                            let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
+                            
+                            
+                            print("key from signupVC = \(SignUpViewController.GlobalVariable.key)")
                             
                             self.deleteUserData()
+                            
                             try Auth.auth().signOut()
                         } catch let error as NSError {
                             print(error.localizedDescription)
                         }
                     })
                     
-                    let main = UIStoryboard(name: "Main", bundle: nil)
-                    let second = main.instantiateViewController(withIdentifier: "SignUp")
-                    self.present(second, animated: true, completion: nil)
+                    let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
+                    self.present(main, animated: true, completion: nil)
                     
                 }))
                 
@@ -97,7 +96,7 @@ class HomeViewController: UIViewController, DataSentDelegate {
             do {
                 try Auth.auth().signOut()
                 let main = UIStoryboard(name: "Main", bundle: nil)
-                    let second = main.instantiateViewController(withIdentifier: "SignUp")
+                    let second = main.instantiateViewController(withIdentifier: "LogIn")
                 present(second, animated: true, completion: nil)
                 
             } catch let error as NSError {
@@ -109,24 +108,9 @@ class HomeViewController: UIViewController, DataSentDelegate {
     
     func deleteUserData(){
         
-      // let key = refUsers.childByAutoId().key
-        
-         self.refUsers.child(GlobalVariable.key2).removeValue()
+        self.refUsers.child(SignUpViewController.GlobalVariable.key).removeValue()
         
         print("datadeleted")
     }
     
-    
-    func userDidEnterData(data: String) {
-        GlobalVariable.key2 = data
-    }
-    
-    // i need a segue from signup viewcontroller
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "SignUp" {
-            let signUpViewController: SignUpViewController = segue.destination as! SignUpViewController
-            signUpViewController.delegate = self
-        }
-        
-}
 }

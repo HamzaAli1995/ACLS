@@ -10,14 +10,10 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-protocol DataSentDelegate {
-    func userDidEnterData(data: String)
-    
-}
+
 
 class SignUpViewController: UIViewController {
     
-    var delegate: DataSentDelegate? = nil
     
     var refUsers: DatabaseReference!
     
@@ -69,19 +65,9 @@ class SignUpViewController: UIViewController {
                         self.present(signUpAlert, animated: true, completion: nil)
                         
                         self.addUsers()    /// add user info to database
+                       
                         
-                        /*// segue between signupvc and homevc
-                        let main = UIStoryboard(name: "Main", bundle: nil)
-                        let first = main.instantiateViewController(withIdentifier: "Home")
-                        self.present(first, animated: false, completion: nil)
-                        */
-                        // send key to homeViewcontroller
-                        if self.delegate != nil {
-                            if GlobalVariable.key != nil{
-                                let data = GlobalVariable.key
-                                self.delegate?.userDidEnterData(data: data)
-                            }
-                        }
+                        
                         
                 }
                 }
@@ -172,10 +158,10 @@ class SignUpViewController: UIViewController {
                     ] as [String : Any] //allow other types than String to be saved in the dictionary
         
         //setting each user information under its user id
-        self.refUsers.childByAutoId().setValue(user)
-        
+        self.refUsers.child(GlobalVariable.key).setValue(user)
+        print("user key =: \(GlobalVariable.key)")
     }
-   
+
     
 }
 
