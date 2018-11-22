@@ -32,6 +32,25 @@ class HomeViewController: UIViewController, DataSentDelegate {
     }
     
     
+    @IBAction func sendMessage(_ sender: AnyObject) {
+        
+        // send message to +18322963652 (you can put your number to check)
+        let headers = [
+            "Content-Type": "application/x-www-form-urlencoded"
+        ]
+        let someString = "+18322963652"
+        let smsMessageBody = "Hello from ACLS app!"
+        let parameters: Parameters = [
+            "To": someString ?? "",
+            "Body": smsMessageBody ?? ""
+        ]
+        
+        Alamofire.request("http://e0dc7faa.ngrok.io/sms", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+            print(response.response)
+            
+        }
+    }
+    
     
     @IBAction func DeleteAccount(_ sender: Any) {
  
@@ -69,6 +88,9 @@ class HomeViewController: UIViewController, DataSentDelegate {
                 self.present(refreshAlert, animated: true, completion: nil)
         
     }
+    
+  
+    
     
     @IBAction func logOutAction(sender: AnyObject) {
         if Auth.auth().currentUser != nil {

@@ -42,9 +42,11 @@ class LoginViewController: UIViewController {
                         if let authResult = authResult {
                             let user = authResult.user
                             if user.isEmailVerified {
+                               
                                 //Go to the HomeViewController if the login is sucessful
                                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
                                 self.present(vc!, animated: true, completion: nil)
+      
                             } else {
                                 let alert = UIAlertController(title: "Error", message: "Please verify email", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
