@@ -9,6 +9,7 @@ target 'ACLS' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'Alamofire', '~> 4.7'
 
 
 
