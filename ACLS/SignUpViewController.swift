@@ -96,6 +96,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         emergencyLastNameTextField.delegate = self
         emergencyPhoneNumberTextField.delegate = self
         
+
         ///stteing datepicker wheel
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
@@ -130,7 +131,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         default:
             break
         }
-             print(mysegementBool)
+        print("isMale:",mysegementBool)
     }
     
     
@@ -142,7 +143,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = "MM/dd/yyyy"
         birthdateTextField.text = dateFormatter.string(from: datePicker.date) //date for view
         GlobalVariable.userBirthDateSince1970 = datePicker.date.timeIntervalSince1970 //date for database
-        print("*\(GlobalVariable.userBirthDateSince1970)")
+        print("userBirthDate:\(GlobalVariable.userBirthDateSince1970)")
       
         view.endEditing(true)
     }

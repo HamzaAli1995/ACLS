@@ -14,13 +14,13 @@ import Alamofire
 
 class HomeViewController: UIViewController {
     
-    var refUsers: DatabaseReference!
+    var refUsersHome: DatabaseReference!
     
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refUsers = Database.database().reference().child("users")
+        refUsersHome = Database.database().reference().child("users")
         
     }
     
@@ -108,8 +108,8 @@ class HomeViewController: UIViewController {
     
     func deleteUserData(){
         
-        self.refUsers.child(SignUpViewController.GlobalVariable.key).removeValue()
-        
+        self.refUsersHome.child(SignUpViewController.GlobalVariable.key).removeValue()
+    
         print("datadeleted")
     }
     
