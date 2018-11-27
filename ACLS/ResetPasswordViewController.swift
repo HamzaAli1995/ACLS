@@ -10,10 +10,26 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class ResetPasswordViewController: UIViewController {
+class ResetPasswordViewController: UIViewController, UITextFieldDelegate {
     
     // Outlets
     @IBOutlet weak var emailTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        emailTextField.delegate = self
+    }
+    
+    // Hide keypad when user taps the screen
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    // Hide keypad when user taps return 
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return(true)
+    }
     
     // Reset Password Action
     @IBAction func submitAction(_ sender: AnyObject) {

@@ -12,7 +12,7 @@ import FirebaseAuth
 
 
 
-class SignUpViewController: UIViewController {
+class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     
     var refUsers: DatabaseReference!
@@ -88,6 +88,14 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super .viewDidLoad()
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        firstNameTextField.delegate = self
+        lastNameTextField.delegate = self
+        emergencyFirstNameTextField.delegate = self
+        emergencyLastNameTextField.delegate = self
+        emergencyPhoneNumberTextField.delegate = self
+        
         ///stteing datepicker wheel
         datePicker = UIDatePicker()
         datePicker?.datePickerMode = .date
@@ -105,6 +113,11 @@ class SignUpViewController: UIViewController {
         
     }
     
+    // Hide keyboard when user taps return
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return(true)
+    }
     
     // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
