@@ -15,7 +15,7 @@ import Alamofire
 class HomeViewController: UIViewController {
     
     var refUsersHome: DatabaseReference!
-
+    var SMSsent: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +35,34 @@ class HomeViewController: UIViewController {
             print("user is not logged in for SMS")
         } else {
             print("userlogged in for SMS")
-            let uid = Auth.auth().currentUser!.uid
-           print(uid)
             
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            //UserID
+            let uid = Auth.auth().currentUser!.uid
+            print("UserID:\(uid)")
+            
+            //timestamp
+            let timestamp = NSDate().timeIntervalSince1970
+            print("Timestamp: \(timestamp)")
+            
+            func instance (){
+                
+                
+                 // save the user id to global variabel key
+                
+                //user information dictionary to be saved into database
+                let loginInstance = ["UserID:": uid,
+                                     "TimeStamp": timestamp
+                    ] as [String : Any]
+                
+                
+                Database.database().reference().child("LogInInstance").setValue(loginInstance)
+            }
+                
+                instance()
+            
+              Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 let emergrncyphone = snapshot.childSnapshot(forPath: "EmergencyPhone:" ).value
-                print(emergrncyphone!)
+                print("emergrncy phone number from database:\(emergrncyphone!)")
                 
                 // send message to +18322963652 (you can put your number to check)
                 let headers = [
@@ -58,9 +80,10 @@ class HomeViewController: UIViewController {
                     
                 }
               })
+            }
             
             
-        }
+        
     }
     
     

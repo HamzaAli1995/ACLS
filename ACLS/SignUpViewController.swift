@@ -158,7 +158,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     func addUsers(){
         let userID=Auth.auth().currentUser!.uid
         
-        GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
+        //GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
         
         //user information dictionary to be saved into database
         let user = ["id:": GlobalVariable.key,
