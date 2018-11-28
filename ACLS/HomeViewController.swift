@@ -46,16 +46,11 @@ class HomeViewController: UIViewController {
             
             func instance (){
                 
-                
-                 // save the user id to global variabel key
-                
-                //user information dictionary to be saved into database
                 let loginInstance = ["UserID:": uid,
                                      "TimeStamp": timestamp
                     ] as [String : Any]
                 
-                
-                Database.database().reference().child("LogInInstance").setValue(loginInstance)
+                Database.database().reference().child("LogIn Instance").childByAutoId().setValue(loginInstance)
             }
                 
                 instance()
