@@ -65,7 +65,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                         self.present(signUpAlert, animated: true, completion: nil)
                         
                         self.addUsers()    /// add user info to database
-                       
+                       //self.snapShot()
                         
                         
                         
@@ -156,6 +156,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
     
     // add user information to database when signup
     func addUsers(){
+        let userID=Auth.auth().currentUser!.uid
         
         GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
         
@@ -172,10 +173,13 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     ] as [String : Any] //allow other types than String to be saved in the dictionary
         
         //setting each user information under its user id
-        self.refUsers.child(GlobalVariable.key).setValue(user)
-        print("user key =: \(GlobalVariable.key)")
+        self.refUsers.child(userID).setValue(user)
+        //print("user key =: \(GlobalVariable.key)")
+        
+        
+        
+        
     }
-
     
 }
 
