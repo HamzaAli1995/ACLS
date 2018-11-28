@@ -53,7 +53,7 @@ class HomeViewController: UIViewController {
                     "Body": smsMessageBody ?? ""
                 ]
                 
-                Alamofire.request("http://5b03e29a.ngrok.io/sms", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+                Alamofire.request("http://e60bd524.ngrok.io/sms", method: .post, parameters: parameters, headers: headers).responseJSON { response in
                     print(response.response)
                     
                 }
