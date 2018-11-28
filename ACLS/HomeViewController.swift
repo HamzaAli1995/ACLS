@@ -47,7 +47,8 @@ class HomeViewController: UIViewController {
             func instance (){
                 
                 let loginInstance = ["UserID:": uid,
-                                     "TimeStamp": timestamp
+                                     "TimeStamp": timestamp,
+                                     "SMSsent": SMSsent
                     ] as [String : Any]
                 
                 Database.database().reference().child("LogIn Instance").childByAutoId().setValue(loginInstance)
