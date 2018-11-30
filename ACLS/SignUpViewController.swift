@@ -120,6 +120,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         return(true)
     }
     
+    
     // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
         
@@ -144,13 +145,12 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         birthdateTextField.text = dateFormatter.string(from: datePicker.date) //date for view
         GlobalVariable.userBirthDateSince1970 = datePicker.date.timeIntervalSince1970 //date for database
         print("userBirthDate:\(GlobalVariable.userBirthDateSince1970)")
-      
-        view.endEditing(true)
+       //view.endEditing(true)
     }
     
     //respond to screen toching function
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
-        view.endEditing(true)
+       view.endEditing(true)
     }
     
     
@@ -161,7 +161,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         //GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
         
         //user information dictionary to be saved into database
-        let user = ["id:": GlobalVariable.key,
+        let user = [
                     "FirstName:": firstNameTextField.text! as String,
                     "LastName:": lastNameTextField.text! as String,
                     "E-mail:": emailTextField.text! as String,
