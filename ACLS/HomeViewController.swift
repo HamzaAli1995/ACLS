@@ -94,7 +94,7 @@ class HomeViewController: UIViewController {
                     Auth.auth().currentUser?.delete(completion: { (err) in
                         
                         do {
-                            let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
+                            let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogIn")
                             
                             
                             //print("key from signupVC = \(SignUpViewController.GlobalVariable.key)")
@@ -107,7 +107,7 @@ class HomeViewController: UIViewController {
                         }
                     })
                     
-                    let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SignUp")
+                    let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogIn")
                     self.present(main, animated: true, completion: nil)
                     
                 }))
