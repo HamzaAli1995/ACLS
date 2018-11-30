@@ -77,29 +77,14 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                 if error == nil {
                     
                     Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (authResult, error) in
-                        if let authResult = authResult {
-                            let user = authResult.user
-                            if user.isEmailVerified {
-                               
-                                //Go to the HomeViewController if the login is sucessful
-                                let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
-                                self.present(vc!, animated: true, completion: nil)
-      
-                            } else {
-                                let alert = UIAlertController(title: "Error", message: "Please verify email", preferredStyle: UIAlertController.Style.alert)
-                                alert.addAction(UIAlertAction(title: "Okay", style: UIAlertAction.Style.default, handler: nil))
-                                self.present(alert, animated: true, completion: nil)
-                                
-                            }
+                        
                         }
-                        if let error = error {
-                            print("Cant Sign in user")
-                        }
-                    }
+                    
                     //self.checkIfUserUsLoggedIn()
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
-                    
+                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")
+                    self.present(vc!, animated: true, completion: nil)
 
                     
                 } else {
