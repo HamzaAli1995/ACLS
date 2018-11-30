@@ -47,31 +47,30 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
-            
             present(alertController, animated: true, completion: nil)
             
         } else {
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-                
                 if error == nil {
-                    Auth.auth().currentUser?.sendEmailVerification { (error) in
-                        // ...
-                        
-                        print(error?.localizedDescription)
-                        
-                        let signUpAlert = UIAlertController(title: "Please verify your email", message: "Email Sent!", preferredStyle: .alert)
-                        signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        
-                        self.present(signUpAlert, animated: true, completion: nil)
-                        
-                        self.addUsers()    /// add user info to database
-                       //self.snapShot()
-                        
-                        
-                        
+                    
+                self.addUsers() // add user info to database
+                   /* let signUpAlert = UIAlertController(title: "Account Created", message: "You can now Login!", preferredStyle: .alert)
+                    signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+                    self.present(signUpAlert, animated: true, completion: nil)
+                    */
+                    let signUpAlert = UIAlertController(title: "Account Created", message: "You can now Login!", preferredStyle: .alert)
+                    let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+                        let LoginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LogIn")
+                        self.present(LoginViewController!, animated: true, completion: nil)
+                    }
+                    signUpAlert.addAction(action)
+                    self.present(signUpAlert, animated: true, completion: nil)
+                    
+                    
+                    //self.snapShot()
+                    
                 }
-                }
-                
                 else {
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
                     
@@ -79,11 +78,15 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     alertController.addAction(defaultAction)
                     
                     self.present(alertController, animated: true, completion: nil)
+                    
                 }
+                
             }
+            
         }
-      
+        
     }
+
     
     
     override func viewDidLoad() {
