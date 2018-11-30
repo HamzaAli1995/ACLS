@@ -117,6 +117,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    //emergencyphone UItextField
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        emergencyPhoneNumberTextField.text = "+1" + textField.text!
+    }
     // Hide keyboard when user taps return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
