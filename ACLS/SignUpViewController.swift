@@ -117,9 +117,21 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    
+    
     //emergencyphone UItextField
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        emergencyPhoneNumberTextField.text = "+1" + textField.text!
+        if textField == emergencyPhoneNumberTextField{
+            let plusLabel = UILabel()
+            plusLabel.text = " +1"
+            plusLabel.font = UIFont(name: plusLabel.font.fontName, size: 14)
+            plusLabel.sizeToFit()
+            textField.leftView = plusLabel
+            textField.leftViewMode = UITextField.ViewMode.always
+            
+       // emergencyPhoneNumberTextField.text = "+1" + textField.text!
+    }
+      
     }
     // Hide keyboard when user taps return
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -175,7 +187,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     "isMale": mysegementBool,
                     "EmergencyFirstName:": emergencyFirstNameTextField.text! as String,
                     "EmergencyLastName:": emergencyLastNameTextField.text! as String,
-                    "EmergencyPhone:": emergencyPhoneNumberTextField.text! as String,
+                    "EmergencyPhone:": "+1" + emergencyPhoneNumberTextField.text! as String,
                     "BirthDate": GlobalVariable.userBirthDateSince1970
                     ] as [String : Any] //allow other types than String to be saved in the dictionary
         
