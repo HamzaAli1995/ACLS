@@ -22,7 +22,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         emailTextField.delegate = self
         passwordTextField.delegate = self
         
-        
     }
     
     // Hide keyboard when user taps anywhere on the screen
@@ -35,25 +34,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
         textField.resignFirstResponder()
         return(true)
     }
-    
-    
-
-   /* func checkIfUserUsLoggedIn(){
-        if Auth.auth().currentUser?.uid == nil {
-            print("user is not logged in")
-        } else {
-            print("userlogged in")
-            let uid = Auth.auth().currentUser!.uid
-            print(uid)
-            
-            Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in print(snapshot)}, withCancel: nil)
-            
-        }
-        
-        
-    }*/
-    
-    
     
     //Login Action
     @IBAction func loginAction(_ sender: AnyObject) {
@@ -79,8 +59,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
                     Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (authResult, error) in
                         
                         }
-                    
-                    //self.checkIfUserUsLoggedIn()
+
                     //Print into the console if successfully logged in
                     print("You have successfully logged in")
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "Home")

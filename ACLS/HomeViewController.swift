@@ -28,7 +28,6 @@ class HomeViewController: UIViewController {
         
     }
     
-    
     @IBAction func sendMessage(_ sender: AnyObject) {
         
         if Auth.auth().currentUser?.uid == nil {
@@ -59,8 +58,7 @@ class HomeViewController: UIViewController {
               Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 let emergrncyphone = snapshot.childSnapshot(forPath: "EmergencyPhone:" ).value
                 print("emergrncy phone number from database:\(emergrncyphone!)")
-                
-                // send message to +18322963652 (you can put your number to check)
+
                 let headers = [
                     "Content-Type": "application/x-www-form-urlencoded"
                 ]
@@ -77,12 +75,7 @@ class HomeViewController: UIViewController {
                 }
               })
             }
-            
-            
-        
     }
-    
-    
     
     @IBAction func DeleteAccount(_ sender: Any) {
  
@@ -95,12 +88,7 @@ class HomeViewController: UIViewController {
                         
                         do {
                             let main = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LogIn")
-                            
-                            
-                            //print("key from signupVC = \(SignUpViewController.GlobalVariable.key)")
-                            
-                            
-                           
+                         
                             try Auth.auth().signOut()
                         } catch let error as NSError {
                             print(error.localizedDescription)
@@ -116,15 +104,10 @@ class HomeViewController: UIViewController {
                     
                     refreshAlert .dismiss(animated: true, completion: nil)
                     
-                    
                 }))
                 
                 self.present(refreshAlert, animated: true, completion: nil)
-        
     }
-    
-  
-    
     
     @IBAction func logOutAction(sender: AnyObject) {
         if Auth.auth().currentUser != nil {
@@ -149,8 +132,6 @@ class HomeViewController: UIViewController {
             print(uid2)
             
         self.refUsersHome.child(uid2).removeValue()
-       // self.refUsersHome.child(SignUpViewController.GlobalVariable.key).removeValue()
-    
         print("datadeleted")
     }
     

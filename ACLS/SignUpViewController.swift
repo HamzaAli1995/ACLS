@@ -10,10 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-
-
 class SignUpViewController: UIViewController, UITextFieldDelegate {
-    
     
     var refUsers: DatabaseReference!
     
@@ -52,13 +49,10 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         } else {
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
                 if error == nil {
-                    
-                self.addUsers() // add user info to database
-                   /* let signUpAlert = UIAlertController(title: "Account Created", message: "You can now Login!", preferredStyle: .alert)
-                    signUpAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                
+                // add user info to database
+                self.addUsers()
 
-                    self.present(signUpAlert, animated: true, completion: nil)
-                    */
                     let signUpAlert = UIAlertController(title: "Account Created", message: "You can now Login!", preferredStyle: .alert)
                     let action = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
                         let LoginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LogIn")
@@ -66,10 +60,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
                     }
                     signUpAlert.addAction(action)
                     self.present(signUpAlert, animated: true, completion: nil)
-                    
-                    
-                    //self.snapShot()
-                    
+
                 }
                 else {
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -86,9 +77,7 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         }
         
     }
-
-    
-    
+ 
     override func viewDidLoad() {
         super .viewDidLoad()
         emailTextField.delegate = self
@@ -117,8 +106,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
     }
     
-    
-    
     //emergencyphone UItextField
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == emergencyPhoneNumberTextField{
@@ -128,8 +115,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
             plusLabel.sizeToFit()
             textField.leftView = plusLabel
             textField.leftViewMode = UITextField.ViewMode.always
-            
-       // emergencyPhoneNumberTextField.text = "+1" + textField.text!
     }
       
     }
@@ -138,7 +123,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return(true)
     }
-    
     
     // isMale boolean value changing with selected segement
     @IBAction func indexChanged(_ sender: Any) {
@@ -154,8 +138,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         print("isMale:",mysegementBool)
     }
     
-    
-    
     //date formater function
     @objc func dateChanged(datePicker: UIDatePicker){
     
@@ -164,7 +146,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         birthdateTextField.text = dateFormatter.string(from: datePicker.date) //date for view
         GlobalVariable.userBirthDateSince1970 = datePicker.date.timeIntervalSince1970 //date for database
         print("userBirthDate:\(GlobalVariable.userBirthDateSince1970)")
-       //view.endEditing(true)
     }
     
     //respond to screen toching function
@@ -172,12 +153,9 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
        view.endEditing(true)
     }
     
-    
     // add user information to database when signup
     func addUsers(){
         let userID=Auth.auth().currentUser!.uid
-        
-        //GlobalVariable.key = refUsers.childByAutoId().key!  // save the user id to global variabel key
         
         //user information dictionary to be saved into database
         let user = [
@@ -193,12 +171,6 @@ class SignUpViewController: UIViewController, UITextFieldDelegate {
         
         //setting each user information under its user id
         self.refUsers.child(userID).setValue(user)
-        //print("user key =: \(GlobalVariable.key)")
-        
-        
-        
-        
     }
-    
 }
 

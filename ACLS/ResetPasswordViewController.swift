@@ -66,6 +66,4 @@ class ResetPasswordViewController: UIViewController, UITextFieldDelegate {
             })
         }
     }
-    
-    
 }
